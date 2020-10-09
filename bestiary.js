@@ -26,10 +26,12 @@
                     
                 return table;
             }
+
             
             searchBestiary();
             window.addEventListener("load", function() {
                 document.getElementById("list").innerHTML = table;
+                
             })
 
             function searchList(searchInput) {
@@ -69,6 +71,8 @@
                 
             }
 
+            
+
              function displayMonster(i) {
 
                 var name = "Name: " + bestiary[i].getElementsByTagName("name")[0].firstChild.data + "\n";
@@ -95,6 +99,21 @@
                 }else {
                     skills = "";
                 }
+                if(bestiary[i].getElementsByTagName("resist")[0] != undefined) {
+                    resistance = "Resistances: " + bestiary[i].getElementsByTagName("resist")[0].firstChild.data  + "\n";
+                }else {
+                    resistance = "";
+                }
+                if(bestiary[i].getElementsByTagName("immune")[0] != undefined) {
+                    immune = "Immunities: " + bestiary[i].getElementsByTagName("immune")[0].firstChild.data  + "\n";
+                }else {
+                    immune = "";
+                }
+                if(bestiary[i].getElementsByTagName("conditionImmune")[0] != undefined) {
+                    condiImmune = "Condition Immunities: " + bestiary[i].getElementsByTagName("conditionImmune")[0].firstChild.data  + "\n";
+                }else {
+                    condiImmune = "";
+                }
                 if(bestiary[i].getElementsByTagName("senses")[0] != undefined) {
                     senses = "Senses: " + bestiary[i].getElementsByTagName("senses")[0].firstChild.data  + "\n";
                 }else {
@@ -108,8 +127,11 @@
                     var traitsList = bestiary[i].getElementsByTagName("trait")
                     for (j = 0; j < traitsList.length; j++) {
                         traits += "\n" + traitsList[j].getElementsByTagName("name")[0].firstChild.data + ": \n";
-                        traits += traitsList[j].getElementsByTagName("text")[0].firstChild.data + "\n";
-
+                        let k = 0;
+                        while (traitsList[j].getElementsByClassName("text")[k] != undefined) {
+                            traits += traitsList[j].getElementsByTagName("text")[k].firstChild.data + "\n";
+                            k++;
+                        }
                     }
                 }else {
                     traits = "";
@@ -119,7 +141,11 @@
                     var actionsList = bestiary[i].getElementsByTagName("action")
                     for (j = 0; j < actionsList.length; j++) {
                         actions += "\n" + actionsList[j].getElementsByTagName("name")[0].firstChild.data + ": \n";
-                        actions += actionsList[j].getElementsByTagName("text")[0].firstChild.data + "\n";
+                        let k = 0;
+                        while (actionsList[j].getElementsByClassName("text")[k] != undefined) {
+                            actions += actionsList[j].getElementsByTagName("text")[k].firstChild.data + "\n";
+                            k++;
+                        }
                         if(actionsList[j].getElementsByTagName("attack")[0] != undefined) {
                             actions += actionsList[j].getElementsByTagName("attack")[0].firstChild.data + ": \n";
                         }
@@ -132,7 +158,11 @@
                     var legendariesList = bestiary[i].getElementsByTagName("legendary")
                     for (j = 0; j < legendariesList.length; j++) {
                         legendaries += "\n" + legendariesList[j].getElementsByTagName("name")[0].firstChild.data + ": \n";
-                        legendaries += legendariesList[j].getElementsByTagName("text")[0].firstChild.data + "\n";
+                        let k = 0;
+                        while (legendariesList[j].getElementsByClassName("text")[k] != undefined) {
+                            legendaries += legendariesList[j].getElementsByTagName("text")[k].firstChild.data + "\n";
+                            k++;
+                        }
                     }
                 }else {
                     legendaries = "";
@@ -169,6 +199,9 @@
                         charisma +
                         savingThrows +
                         skills +
+                        resistance +
+                        immune +
+                        condiImmune +
                         senses +
                         passive +
                         languages +

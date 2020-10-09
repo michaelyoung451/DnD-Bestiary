@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>DnD Bestiary</title>
+    </head>
+    <style>
+        table,th,td {
+          border : 1px solid black;
+          border-collapse: collapse;
+        }
+        th,td {
+          padding: 5px;
+        }
+        </style>
+    <body>
+        <script type="text/javascript">
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "bestiary.xml", false);
+            xhttp.send();
+            var xmlDoc = xhttp.responseXML;
+            var bestiary = xmlDoc.getElementsByTagName('monster')
+            var table="<tr><th>Name</th><th>CR</th></tr>";
+
+            
+        
+            for (i = 0; i < bestiary.length; i++) { 
+                var currentMonster = bestiary[i];
+
+                var name = "Name: " + bestiary[i].getElementsByTagName("name")[0].firstChild.data;
+                var size = "Size: " + bestiary[i].getElementsByTagName("size")[0].firstChild.data;
+                var type = "Type: " + bestiary[i].getElementsByTagName("type")[0].firstChild.data;
+
+
+                
+                table += "<tr onclick='selectMonster(" + i + ")'><td>"; 
+                table += bestiary[i].getElementsByTagName("name")[0].firstChild.data;
+                table += "</td><td>";
+                table += bestiary[i].getElementsByTagName("cr")[0].firstChild.data;
+                table += "</td></tr>";
+            }
+            
+            window.addEventListener("load", function() {
+                document.getElementById("list").innerHTML = table;
+            })
+
+            function selectMonster(i) {
+                
+                var name = "Name: " + bestiary[i].getElementsByTagName("name")[0].firstChild.data;
+                var size = "Size: " + bestiary[i].getElementsByTagName("size")[0].firstChild.data;
+                var type = "Type: " + bestiary[i].getElementsByTagName("type")[0].firstChild.data;
+
+                document.getElementById("showMonster").innerHTML +=
+                    "<div>" +
+                    "<p onclick='displayMonster(" + i + ")'>" + name + "<br>" + size + "<br>" + type + "<br><br></p" +
+                    "</div>";
+
+                
+            }
+
+             function displayMonster(i) {
+
+                var name = "Name: " + bestiary[i].getElementsByTagName("name")[0].firstChild.data;
+                var size = "Size: " + bestiary[i].getElementsByTagName("size")[0].firstChild.data;
+                var type = "Type: " + bestiary[i].getElementsByTagName("type")[0].firstChild.data;
+                var hp = "HP: " + bestiary[i].getElementsByTagName("hp")[0].firstChild.data;
+                var ac = "AC: " + bestiary[i].getElementsByTagName("ac")[0].firstChild.data;
+                var speed = "Speed: " + bestiary[i].getElementsByTagName("speed")[0].firstChild.data;
+                var strength = "STR: " + bestiary[i].getElementsByTagName("str")[0].firstChild.data;
+                var dexterity = "DEX: " + bestiary[i].getElementsByTagName("dex")[0].firstChild.data;
+                var constitution = "CON: " + bestiary[i].getElementsByTagName("con")[0].firstChild.data;
+                var intellect = "INT: " + bestiary[i].getElementsByTagName("int")[0].firstChild.data;
+                var wisdom = "WIS: " + bestiary[i].getElementsByTagName("wis")[0].firstChild.data;
+                var charisma = "CHA: " + bestiary[i].getElementsByTagName("cha")[0].firstChild.data;
+                //var savingThrows = "Saving Throws: " + bestiary[i].getElementsByTagName("save")[0].firstChild.data;
+                
+
+                 alert("Monster Data: \n\n" + 
+                        name + "\n" + 
+                        size + "\n" + 
+                        type + "\n" +
+                        hp + "\n" +
+                        ac + "\n" +
+                        speed + "\n" +
+                        strength + "\n" +
+                        dexterity + "\n" +
+                        constitution + "\n" +
+                        intellect + "\n" +
+                        wisdom + "\n" +
+                        charisma + "\n" +
+                        "\n")
+                
+                /*document.getElementById("showMonster").innerHTML +=
+
+                    "Name: " +
+                    bestiary[i].getElementsByTagName("name")[0].childNodes[0].nodeValue +
+                    "<br>Size: " +
+                    bestiary[i].getElementsByTagName("size")[0].childNodes[0].nodeValue +
+                    "<br>Type: " + 
+                    bestiary[i].getElementsByTagName("type")[0].childNodes[0].nodeValue +
+                    "<br>HP: " +
+                    bestiary[i].getElementsByTagName("hp")[0].childNodes[0].nodeValue +
+                    "<br>AC: " +
+                    bestiary[i].getElementsByTagName("ac")[0].childNodes[0].nodeValue +
+                    "<br>Speed: " +
+                    bestiary[i].getElementsByTagName("speed")[0].childNodes[0].nodeValue +
+                    "<br>STR: " +
+                    bestiary[i].getElementsByTagName("str")[0].childNodes[0].nodeValue +
+                    "<br>DEX: " +
+                    bestiary[i].getElementsByTagName("dex")[0].childNodes[0].nodeValue +
+                    "<br>CON: " +
+                    bestiary[i].getElementsByTagName("con")[0].childNodes[0].nodeValue +
+                    "<br>INT: " +
+                    bestiary[i].getElementsByTagName("int")[0].childNodes[0].nodeValue +
+                    "<br>WIS: " +
+                    bestiary[i].getElementsByTagName("wis")[0].childNodes[0].nodeValue +
+                    "<br>CHA: " +
+                    bestiary[i].getElementsByTagName("cha")[0].childNodes[0].nodeValue +
+                    "<br>Saving Throws: " +
+                    bestiary[i].getElementsByTagName("save")[0].childNodes[0].nodeValue +
+                    "<br>Immunities: " +
+                    bestiary[i].getElementsByTagName("immune")[0].childNodes[0].nodeValue +
+                    "<br>Senses: " +
+                    bestiary[i].getElementsByTagName("senses")[0].childNodes[0].nodeValue +
+                    "<br>Skills: " +
+                    bestiary[i].getElementsByTagName("skill")[0].childNodes[0].nodeValue +
+                    "<br>Passive Perception: " +
+                    bestiary[i].getElementsByTagName("passive")[0].childNodes[0].nodeValue +
+                    "<br>Languages: " +
+                    bestiary[i].getElementsByTagName("languages")[0].childNodes[0].nodeValue +
+                    "<br>CR: " +
+                    bestiary[i].getElementsByTagName("cr")[0].childNodes[0].nodeValue +
+                    "<br>Traits: " +
+                    bestiary[i].getElementsByTagName("trait")[0].childNodes[0].nodeValue+
+
+                    "<br>";*/
+                
+            };
+            
+        </script>
+
+        <h1>DnD Fifth Edition Bestiary</h1>
+
+        <p>Click on a monster to see more information.</p>
+        <p id='showMonster'></p>
+        <form id='search-bar'>
+
+        </form>
+        <div>
+            <table id="list"></table>
+        </div>
+    </body>
+</html>
